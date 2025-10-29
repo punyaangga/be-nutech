@@ -1,4 +1,3 @@
-// src/app.ts
 import express from "express";
 import dotenv from "dotenv";
 import userRoutes from "./interfaces/routes/userRoutes.js";
@@ -13,5 +12,5 @@ app.use("/api/users", userRoutes);
 // health check
 app.get("/health", (_, res) => res.send("ok"));
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT ;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
