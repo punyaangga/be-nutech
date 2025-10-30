@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
 import { BannerRepository } from "../infrastructure/repositories/bannerRepository.js";
 import type { Banner } from "../domain/entities/bannerEntity.js";
 

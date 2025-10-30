@@ -19,5 +19,6 @@ export class UserRepository {
     const result = await db.query(query, values);
     return result.rows[0];
   }
+  
 
 }
