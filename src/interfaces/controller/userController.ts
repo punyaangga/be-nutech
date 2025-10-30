@@ -58,17 +58,9 @@
         const userInfoId = req.auth.id;
         const file = req.files?.file; 
 
-        const ext = (file as any).name.split('.').pop();
-        const baseName = (file as any).name.split('/').pop()?.split('.')[0];
-        const timestamp = Date.now(); 
-        const imageName = `${baseName}_${timestamp}.${ext}`;
-        const uploadPath = `public/uploads/${imageName}`;
-        await (file as any).mv(uploadPath);
-
-        const imageUrl = `/uploads/${imageName}`;
 
         const useCase = new ProfileUsecase();
-        const result = await useCase.updateProfileImage(userInfoId, imageUrl);
+        const result = await useCase.updateProfileImage(userInfoId, file as any);
 
         return res.status(200).json(successResponse("Foto profil diperbarui", result));
       } catch (err: any) {

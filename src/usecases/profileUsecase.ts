@@ -21,7 +21,16 @@ export class ProfileUsecase {
         return dataResponse;
     }
 
-    async updateProfileImage(userId: string, imageUrl: string) {
+    async updateProfileImage(userId: string, file: any) {
+         const ext = (file as any).name.split('.').pop();
+                const baseName = (file as any).name.split('/').pop()?.split('.')[0];
+                const timestamp = Date.now(); 
+                const imageName = `${baseName}_${timestamp}.${ext}`;
+                const uploadPath = `public/uploads/${imageName}`;
+                await (file as any).mv(uploadPath);
+        
+                const imageUrl = `/uploads/${imageName}`;
+
         const updatedProfile = await this.userInfoRepo.updateProfile(userId, { photo_profile: imageUrl });
         const dataResponse = {
             email: updatedProfile?.email,
