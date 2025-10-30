@@ -2,7 +2,7 @@ import { pool } from "../../config/database.js";
 import type { User } from "../../domain/entities/userEntity.js";
 export class UserRepository {
   async findByEmail(email: string) {
-    const query = `SELECT * FROM users WHERE email = $1 LIMIT 1;`;
+    const query = `SELECT email FROM users WHERE email = $1 LIMIT 1;`;
     const values = [email];
     const result = await pool.query(query, values);
     return result.rows[0] || null;
