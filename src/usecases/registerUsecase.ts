@@ -4,7 +4,7 @@ import { UserInfoRepository } from "../infrastructure/repositories/userInfoRepos
 import type { User } from "../domain/entities/userEntity.js";
 import type { UserInfo } from "../domain/entities/userInfoEntity.js";
 import { hashPassword } from "../utils/password.js";
-import { pool } from "../config/database.js"; // asumsi kamu punya pool di sini
+import { pool } from "../config/database.js";
 
 export class RegisterUserUseCase {
   private userRepo: UserRepository;

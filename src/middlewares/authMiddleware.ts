@@ -13,11 +13,10 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction) 
     const token = authHeader.split(" ")[1];
     const decoded = verifyToken(token);
 
-    // Simpan hasil decode token ke request agar bisa dipakai controller
-    (req as any).user = decoded;
-
+    req.auth = decoded;
+    
     next();
   } catch (err) {
-    return res.status(401).json(errorResponse("Token tidak valid atau sudah kedaluwarsa"));
+    return res.status(401).json(errorResponse("Token tidak valid atau sudah kedaluwarsa", null));
   }
 }

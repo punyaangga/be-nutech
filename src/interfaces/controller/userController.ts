@@ -2,6 +2,7 @@
   import type { Request, Response } from "express";
   import { validationResult } from "express-validator";
   import { RegisterUserUseCase } from "../../usecases/registerUsecase.js";
+  import {ProfileUsecase} from"../../usecases/profileUsecase.js";
   import { LoginUserUseCase } from "../../usecases/loginUsecase.js";
   import { successResponse, errorResponse } from "../../utils/response.js";
 
@@ -26,14 +27,32 @@
     }
 
     static async login(req: Request, res: Response) {
-    try {
-      const { email, password } = req.body;
-      const useCase = new LoginUserUseCase();
-      const result = await useCase.execute(email, password);
+      try {
+        const { email, password } = req.body;
+        const useCase = new LoginUserUseCase();
+        const result = await useCase.execute(email, password);
 
-      return res.status(200).json(successResponse("Login Sukses", result));
-    } catch (err: any) {
-      return res.status(400).json(errorResponse(err.message || "Login gagal"));
+        return res.status(200).json(successResponse("Login Sukses", result));
+      } catch (err: any) {
+        return res.status(400).json(errorResponse(err.message || "Login gagal"));
+      }
     }
-  }
+
+    static async profile(req: Request, res: Response) {
+      try{
+          const userInfoId = req.auth.id;
+          const { first_name, last_name } = req.body;
+          const updateProfileUseCase = new ProfileUsecase();
+          const updatedProfile = await updateProfileUseCase.updateProfile(userInfoId, { first_name, last_name });
+          if(!updatedProfile){
+              return res.status(404).json(errorResponse("User not found",null));
+          }
+          return res.status(200).json(successResponse("Update Profile Berhasil", updatedProfile));
+      } catch (err: any) {
+          return res.status(400).json(errorResponse(err.message || "Failed to update profile", null));
+      }
+       
+        
+
+    }
   }
