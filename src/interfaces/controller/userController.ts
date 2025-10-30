@@ -51,8 +51,28 @@
       } catch (err: any) {
           return res.status(400).json(errorResponse(err.message || "Failed to update profile", null));
       }
-       
-        
+    }
 
+    static async updateProfileImage(req: Request, res: Response) {
+      try {
+        const userInfoId = req.auth.id;
+        const file = req.files?.file; 
+
+        const ext = (file as any).name.split('.').pop();
+        const baseName = (file as any).name.split('/').pop()?.split('.')[0];
+        const timestamp = Date.now(); 
+        const imageName = `${baseName}_${timestamp}.${ext}`;
+        const uploadPath = `public/uploads/${imageName}`;
+        await (file as any).mv(uploadPath);
+
+        const imageUrl = `/uploads/${imageName}`;
+
+        const useCase = new ProfileUsecase();
+        const result = await useCase.updateProfileImage(userInfoId, imageUrl);
+
+        return res.status(200).json(successResponse("Foto profil diperbarui", result));
+      } catch (err: any) {
+        return res.status(500).json(errorResponse(err.message || "Gagal memperbarui foto profil"));
+      }
     }
   }

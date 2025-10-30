@@ -20,4 +20,15 @@ export class ProfileUsecase {
         };
         return dataResponse;
     }
+
+    async updateProfileImage(userId: string, imageUrl: string) {
+        const updatedProfile = await this.userInfoRepo.updateProfile(userId, { photo_profile: imageUrl });
+        const dataResponse = {
+            email: updatedProfile?.email,
+            first_name: updatedProfile?.first_name,
+            last_name: updatedProfile?.last_name,
+            profile_image: updatedProfile?.photo_profile,
+        };
+        return dataResponse;
+    }
 }

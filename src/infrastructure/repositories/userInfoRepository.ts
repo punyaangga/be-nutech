@@ -24,8 +24,11 @@ export class UserInfoRepository {
     const query = `
     WITH updated AS (
       UPDATE user_info 
-      SET first_name = $1, last_name = $2
-      WHERE user_id = $3
+      SET 
+      first_name = COALESCE($1, first_name),
+      last_name = COALESCE($2, last_name),
+      photo_profile = COALESCE($3, photo_profile)
+      WHERE user_id = $4
       RETURNING user_id, first_name, last_name, photo_profile
     )
     SELECT 
@@ -33,12 +36,13 @@ export class UserInfoRepository {
       updated.first_name,
       updated.last_name,
       updated.photo_profile
-    FROM updated
-    JOIN "users" u ON u.id = updated.user_id;
+      FROM updated
+      JOIN "users" u ON u.id = updated.user_id;
   `;
     const values = [
       data.first_name,
       data.last_name,
+      data.photo_profile,
       userId,
     ];
     const result = await pool.query(query, values);
