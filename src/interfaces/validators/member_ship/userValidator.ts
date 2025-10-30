@@ -1,6 +1,6 @@
 import { body } from "express-validator";
-import { UserRepository } from "../../infrastructure/repositories/userRepository.js";
-import { comparePassword } from "../../utils/password.js";
+import { UserRepository } from "../../../infrastructure/repositories/member_ship/userRepository.js";
+import { comparePassword } from "../../../utils/password.js";
 
 const userRepo = new UserRepository();
 

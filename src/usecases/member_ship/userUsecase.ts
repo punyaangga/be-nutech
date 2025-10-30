@@ -1,12 +1,12 @@
 import { v4 as uuidv4 } from "uuid";
-import { UserRepository } from "../infrastructure/repositories/userRepository.js";
-import { UserInfoRepository } from "../infrastructure/repositories/userInfoRepository.js";
-import type { User } from "../domain/entities/userEntity.js";
-import type { UserInfo } from "../domain/entities/userInfoEntity.js";
-import { hashPassword } from "../utils/password.js";
-import { pool } from "../config/database.js";
+import { UserRepository } from "../../infrastructure/repositories/member_ship/userRepository.js";
+import { UserInfoRepository } from "../../infrastructure/repositories/member_ship/userInfoRepository.js";
+import type { User } from "../../domain/entities/member_ship/userEntity.js";
+import type { UserInfo } from "../../domain/entities/member_ship/userInfoEntity.js";
+import { hashPassword } from "../../utils/password.js";
+import { pool } from "../../config/database.js";
 
-export class RegisterUserUseCase {
+export class UserUsecase {
   private userRepo: UserRepository;
   private userInfoRepo: UserInfoRepository;
 
@@ -15,7 +15,7 @@ export class RegisterUserUseCase {
     this.userInfoRepo = userInfoRepo ?? new UserInfoRepository();
   }
 
-  async execute( inputUser: Pick<User, "email" | "password">, inputUserInfo: Pick<UserInfo, "first_name" | "last_name">) {
+  async register( inputUser: Pick<User, "email" | "password">, inputUserInfo: Pick<UserInfo, "first_name" | "last_name">) {
     const client = await pool.connect(); 
     try {
       await client.query("BEGIN");

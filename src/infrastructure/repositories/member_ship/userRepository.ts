@@ -1,5 +1,5 @@
-import { pool } from "../../config/database.js";
-import type { User } from "../../domain/entities/userEntity.js";
+import { pool } from "../../../config/database.js";
+import type { User } from "../../../domain/entities/member_ship/userEntity.js";
 export class UserRepository {
   async findByEmail(email: string) {
     const query = `SELECT * FROM users WHERE email = $1 LIMIT 1;`;

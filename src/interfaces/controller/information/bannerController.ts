@@ -1,8 +1,8 @@
   import type { Request, Response } from "express";
-  import { BannerUseCase } from "../../usecases/bannerUsecase.js";
-  import { successResponse, errorResponse } from "../../utils/response.js";
+  import { BannerUseCase } from "../../../usecases/information/bannerUsecase.js";
+  import { successResponse, errorResponse } from "../../../utils/response.js";
 
-  export class InformationController {
+  export class BannerController {
     static async getBanner(req: Request, res: Response) {
       try {
         const useCase = new BannerUseCase();

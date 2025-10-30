@@ -1,17 +1,19 @@
-import { UserInfoRepository } from "../infrastructure/repositories/userInfoRepository.js";
-import { pool } from "../config/database.js";
-import type { UserInfo } from "../domain/entities/userInfoEntity.js";
+import { UserInfoRepository } from "../../infrastructure/repositories/member_ship/userInfoRepository.js";
+import type { UserInfo } from "../../domain/entities/member_ship/userInfoEntity.js";
 
-export class ProfileUsecase {
+export class UserInfoUsecase {
     private userInfoRepo: UserInfoRepository;
 
     constructor(userInfoRepo?: UserInfoRepository) {
         this.userInfoRepo = userInfoRepo ?? new UserInfoRepository();
     }
+    async getUserInfo(userId: string) {
+        const userInfo =  await this.userInfoRepo.findByUserId(userId);
+        return userInfo;
+    }
+    async updateUserInfo(userId: string, data: Partial<UserInfo>) {
 
-    async updateProfile(userId: string, data: Partial<UserInfo>) {
-        
-        const updatedProfile = await this.userInfoRepo.updateProfile(userId, data);
+        const updatedProfile = await this.userInfoRepo.update(userId, data);
         const dataResponse = {
             email: updatedProfile?.email,
             first_name: updatedProfile?.first_name,
@@ -21,7 +23,7 @@ export class ProfileUsecase {
         return dataResponse;
     }
 
-    async updateProfileImage(userId: string, file: any) {
+    async updateUserPhotoProfile(userId: string, file: any) {
          const ext = (file as any).name.split('.').pop();
                 const baseName = (file as any).name.split('/').pop()?.split('.')[0];
                 const timestamp = Date.now(); 
@@ -31,7 +33,7 @@ export class ProfileUsecase {
         
                 const imageUrl = `/uploads/${imageName}`;
 
-        const updatedProfile = await this.userInfoRepo.updateProfile(userId, { photo_profile: imageUrl });
+        const updatedProfile = await this.userInfoRepo.update(userId, { photo_profile: imageUrl });
         const dataResponse = {
             email: updatedProfile?.email,
             first_name: updatedProfile?.first_name,

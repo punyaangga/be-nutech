@@ -1,6 +1,15 @@
-import { pool } from "../../config/database.js";
-import type { UserInfo } from "../../domain/entities/userInfoEntity.js";
+import { pool } from "../../../config/database.js";
+import type { UserInfo } from "../../../domain/entities/member_ship/userInfoEntity.js";
 export class UserInfoRepository {
+  async findByUserId(userId: string) {
+    const query = `SELECT u.email, ui.first_name, ui.last_name, ui.photo_profile
+                   FROM user_info ui
+                   JOIN users u ON u.id = ui.user_id
+                   WHERE ui.user_id = $1;`;
+    const values = [userId];
+    const result = await pool.query(query, values);
+    return result.rows[0];
+  }
   async create(userInfo: UserInfo, client?: any) {
     const db = client || pool;
     const query = `
@@ -19,7 +28,7 @@ export class UserInfoRepository {
     return result.rows[0];
   }
 
-  async updateProfile(userId: string, data: Partial<UserInfo>) {
+  async update(userId: string, data: Partial<UserInfo>) {
     console.log("Updating profile for userId:", userId, "with data:", data);
     const query = `
     WITH updated AS (
