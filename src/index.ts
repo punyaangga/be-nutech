@@ -1,6 +1,5 @@
 import express from "express";
 import dotenv from "dotenv";
-import { setupSwagger } from "./config/swagger.js";
 import userRoutes from "./interfaces/routes/member_ship/userRoutes.js";
 import userInfoRoutes from "./interfaces/routes/member_ship/userInfoRoutes.js";
 import bannerRoutes from "./interfaces/routes/information/bannerRoutes.js";
@@ -14,7 +13,6 @@ dotenv.config();
 
 const app = express();
 
-setupSwagger(app);
 app.use(express.json());
 app.use(fileUpload());
 
