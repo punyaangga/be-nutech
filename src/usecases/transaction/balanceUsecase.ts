@@ -14,6 +14,9 @@ export class BalanceUsecase {
     }
     async checkBalance(userId: string){
         const balance = await this.balanceRepository.checkBalance(userId);
+        if (!balance) {
+            return null;
+        }
         const balanceResponse = {
             balance: balance.user_balance,
         }
