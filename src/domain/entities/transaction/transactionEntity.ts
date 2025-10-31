@@ -1,8 +1,9 @@
 export interface Transaction{
     id: string;
     user_id: string;
-    amount: number;
+    amount?: number;
     ppob_id?: string;
     transaction_type: 'TOPUP' | 'PAYMENT';
     created_at?: Date;
+    transaction_number?: string;
 }

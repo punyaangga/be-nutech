@@ -4,6 +4,7 @@ import userRoutes from "./interfaces/routes/member_ship/userRoutes.js";
 import userInfoRoutes from "./interfaces/routes/member_ship/userInfoRoutes.js";
 import bannerRoutes from "./interfaces/routes/information/bannerRoutes.js";
 import balanceRoutes from "./interfaces/routes/transaction/balanceRoutes.js";
+import transactionRoutes from "./interfaces/routes/transaction/transactionroutes.js";
 import ppobRoutes from "./interfaces/routes/information/ppobRoutes.js";
 import fileUpload from "express-fileupload";
 import { userInfo } from "os";
@@ -14,7 +15,7 @@ const app = express();
 app.use(express.json());
 app.use(fileUpload());
 
-app.use("/", userRoutes, userInfoRoutes, bannerRoutes, ppobRoutes, balanceRoutes);
+app.use("/", userRoutes, userInfoRoutes, bannerRoutes, ppobRoutes, balanceRoutes, transactionRoutes);
 
 const PORT = process.env.PORT ;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
