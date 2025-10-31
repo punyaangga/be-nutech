@@ -1,0 +1,43 @@
+# 🧠 Backend Clean Architecture – Node.js + Express + TypeScript
+
+Project ini dibuat menggunakan **Node.js**, **Express**, dan **TypeScript** dengan penerapan konsep **Clean Architecture** agar struktur kode lebih modular, mudah di-maintain, dan scalable.
+
+---
+
+## 📂 Project Structure
+
+├── config/ # Konfigurasi database, environment, dan koneksi
+├── domain/ # Entity / model bisnis utama
+├── infrastructure/ # Akses ke data (repository, query SQL, dll)
+├── interfaces/ # Layer interface (controller, route, response handler)
+├── middlewares/ # Middleware (auth JWT, validator, dsb)
+├── types/ # TypeScript type definitions
+├── usecases/ # Business logic utama (interaksi domain & repository)
+├── utils/ # Helper / fungsi umum
+└── index.ts # Entry point utama aplikasi
+
+
+---
+
+## 🚀 How to Run the Project
+
+### 1️⃣ Clone Repository
+
+git clone https://github.com/username/nama-project.git
+cd nama-project
+
+### 2️⃣ Install Dependencies
+npm install
+
+### 3️⃣ Setup Environment Variables
+ubah file .env-example.txt menjadi .env
+
+🧩 Run Modes
+🔹 Development Mode
+npm run dev
+
+🔹 Build Project (Compile TypeScript)
+npm run build
+
+🔹 Run Production Build
+npm start
