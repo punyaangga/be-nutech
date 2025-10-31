@@ -20,5 +20,14 @@ export class TransactionRepository {
         return result.rows[0];
     }
 
+    async getTransactionHistory(userId: string, offset: number, limit: number) {
+        const query = `SELECT * FROM transaction as a left join ppob as b ON a.ppob_id = b.id where a.user_id=$1;`;
+        const values = [userId];
+        const result = await pool.query(query, values);
+        const transactions = result.rows.slice(offset, offset + limit);
+        const total = result.rows.length;
+        return { transactions, total };
+    }
+
     
 }

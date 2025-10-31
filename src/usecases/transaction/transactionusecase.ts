@@ -66,5 +66,21 @@ export class TransactionUsecase {
         }
         
     }
-    
+
+    async getTransactionHistory(userId: string, offset: number, limit: number) {
+        const { transactions, total } = await this.transactionRepository.getTransactionHistory(userId, offset, limit);
+        return {
+            offset,
+            limit,
+            records: transactions.map(tx => ({
+            invoice_number: tx.transaction_number,
+            transaction_type: tx.transaction_type,
+            description: tx.description,
+            total_amount: tx.amount,
+            created_on: tx.created_at,
+            })),
+        };
+    }
+
+                
 }

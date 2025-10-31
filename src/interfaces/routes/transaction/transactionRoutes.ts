@@ -5,4 +5,5 @@ import { authMiddleware } from "../../../middlewares/authMiddleware.js";
 const router = express.Router();
 
 router.post("/transaction", authMiddleware, TransactionController.createTransaction);
+router.get("/transaction/history", authMiddleware, TransactionController.getTransactionHistory);
 export default router;
