@@ -7,7 +7,7 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction) 
     // Ambil header Authorization
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json(errorResponse("Username atau password salah"));
+      return res.status(401).json(errorResponse("Token tidak valid atau sudah kedaluwarsa"));
     }
 
     const token = authHeader.split(" ")[1];
