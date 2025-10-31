@@ -24,9 +24,11 @@ export class BalanceUsecase {
     }
     async topUpBalance(userId: string, top_up_amount: number) {
         const client = await pool.connect();
+        const now = new Date();
         try{
             await client.query('BEGIN');
              const existingBalance = await this.balanceRepository.checkBalance(userId);
+            const transaction_number = `INV-${now.getTime()}`;
             const balanceData: Balance = {
                 id: uuidv4(),
                 user_id: userId,
@@ -37,6 +39,7 @@ export class BalanceUsecase {
                 const newBalance = await this.balanceRepository.insertBalance(userId, balanceData);
                 await this.transactionRepository.insertTransaction(userId, {
                     id: uuidv4(),
+                    transaction_number:transaction_number,
                     amount: top_up_amount,
                     ppob_id: null,
                     transaction_type: 'TOPUP',
@@ -48,6 +51,7 @@ export class BalanceUsecase {
             const updatedBalance = await this.balanceRepository.updateBalance(userId, totalBalance);
             await this.transactionRepository.insertTransaction(userId, {
                 id: uuidv4(),
+                transaction_number:transaction_number,
                 amount: top_up_amount,
                 ppob_id: null,
                 transaction_type: 'TOPUP',
