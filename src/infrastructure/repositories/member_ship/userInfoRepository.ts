@@ -7,7 +7,7 @@ export class UserInfoRepository {
                    JOIN users u ON u.id = ui.user_id
                    WHERE ui.user_id = $1;`;
     const values = [userId];
-    const result = await pool.query(query, values);
+    const result = await pool.query(query,values);
     return result.rows[0];
   }
   async create(userInfo: UserInfo, client?: any) {

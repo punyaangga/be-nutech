@@ -1,6 +1,4 @@
-import { title } from "process";
 import { pool } from "../../../config/database.js";
-import type { Banner } from "../../../domain/entities/information/bannerEntity.js";
 
 export class BannerRepository {
     
