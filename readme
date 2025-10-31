@@ -2,7 +2,8 @@
 
 Project ini dibuat menggunakan **Node.js**, **Express**, dan **TypeScript** dengan penerapan konsep **Clean Architecture** agar struktur kode lebih modular, mudah di-maintain, dan scalable.
 
----
+## 📂 Dokumentasi API 
+https://documenter.getpostman.com/view/9643334/2sB3WpPzrP
 
 ## 📂 Project Structure
 
@@ -16,8 +17,6 @@ Project ini dibuat menggunakan **Node.js**, **Express**, dan **TypeScript** deng
 ├── utils/ # Helper / fungsi umum
 └── index.ts # Entry point utama aplikasi
 
-
----
 
 ## 🚀 How to Run the Project
 
