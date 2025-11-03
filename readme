@@ -7,7 +7,7 @@ https://documenter.getpostman.com/view/9643334/2sB3WpPzrP
 
 ## 📂 Project Structure
 
-├── config/ # Konfigurasi database, environment, dan koneksi
+├── config/ # Konfigurasi database
 ├── domain/ # Entity / model bisnis utama
 ├── infrastructure/ # Akses ke data (repository, query SQL, dll)
 ├── interfaces/ # Layer interface (controller, route, response handler)
